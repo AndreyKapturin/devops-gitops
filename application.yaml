@@ -26,9 +26,19 @@ spec:
         - values-production.yaml
         - secrets.yaml          # зашифрован SOPS; helm-secrets в repoServer расшифрует
   project: default
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
+    - group: autoscaling
+      kind: HorizontalPodAutoscaler
+      jsonPointers:
+        - /spec/replicas
   syncPolicy:
     automated:
       prune: true              # удалять из кластера то, что исчезло из git
       selfHeal: true           # откатывать ручные kubectl-правки к состоянию git
     syncOptions:
       - CreateNamespace=true
+      - RespectIgnoreDifferences=true 
