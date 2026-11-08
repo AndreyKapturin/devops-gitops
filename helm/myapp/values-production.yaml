@@ -10,3 +10,7 @@ backend:
 frontend:
   image:
     tag: "sha-175fe36c7d3a0ba6584c9b6ff36f8b8c20fb7054"
+hpa:
+  enabled: true
+monitoring:
+  enabled: true
